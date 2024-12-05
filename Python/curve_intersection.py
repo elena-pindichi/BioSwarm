@@ -17,7 +17,7 @@ from matplotlib.patches import Circle, Wedge, Polygon
 from numpy import linalg as LA
 #import win32clipboard as clipboard
 from scipy.sparse.csgraph import shortest_path
-from nonlinear_mpc import MPC_controller
+# from nonlinear_mpc import MPC_controller
 from bspline_path_planner import bspline_path_planner_polytope_map
 from scipy.interpolate import CubicSpline
 from shapely.geometry import LineString
@@ -61,14 +61,14 @@ ws_limit = [(np.float64(-3), np.float64(3)), (np.float64(-3), np.float64(-3)), (
 # obstacle3 = [(0.2, 1.3), (0.5, 1.4), (0.4, 1.7),(0.3, 1.6),(1.45, 1.3)]
 # obstacle4 = [(0.125,1.825),(0.2, 1.7),(0.4, 1.7),(0.45, 1.8),()]
 obstacle11 = [(-0.6, -0.6), (-0.6, -1.6), (-1.6, -1.6), (-1.6, -0.6)]
-obstacle12 = [(-0.6, 0.5), (-0.6, -0.5), (-1.6, -0.5), (-1.6, 0.5)]
-obstacle13 = [(-0.6, 1.6), (-0.6, 0.6), (-1.6, 0.6), (-1.6, 1.6)]
-obstacle21 = [(0.5, -0.6), (0.5, -1.6), (-0.5, -1.6), (-0.5, -0.6)]
-obstacle22 = [(0.5, 0.5), (0.5, -0.5), (-0.5, -0.5), (-0.5, 0.5)]
-obstacle23 = [(0.5, 1.6), (0.5, 0.6), (-0.5, 0.6), (-0.5, 1.6)]
-obstacle31 = [(1.6, -0.6), (1.6, -1.6), (0.6, -1.6), (0.6, -0.6)]
+# obstacle12 = [(-0.6, 0.5), (-0.6, -0.5), (-1.6, -0.5), (-1.6, 0.5)]
+# obstacle13 = [(-0.6, 1.6), (-0.6, 0.6), (-1.6, 0.6), (-1.6, 1.6)][(0.5, 0.5), (0.5, -0.5), (-0.5, -0.5), (-0.5, 0.5)]
+# obstacle21 = [(0.5, -0.6), (0.5, -1.6), (-0.5, -1.6), (-0.5, -0.6)]
+obstacle22 = [(-0.6, 1.6), (-0.6, 0.6), (-1.6, 0.6), (-1.6, 1.6)]
+# obstacle23 = [(0.5, 1.6), (0.5, 0.6), (-0.5, 0.6), (-0.5, 1.6)]
+# obstacle31 = [(1.6, -0.6), (1.6, -1.6), (0.6, -1.6), (0.6, -0.6)]
 obstacle32 = [(1.6, 0.5), (1.6, -0.5), (0.6, -0.5), (0.6, 0.5)]
-obstacle33 = [(1.6, 1.6), (1.6, 0.6), (0.6, 0.6), (0.6, 1.6)]
+# obstacle33 = [(1.6, 1.6), (1.6, 0.6), (0.6, 0.6), (0.6, 1.6)]
 
 # print(type(ws_limit))
 # print(type(ws_limit[2]))
@@ -76,55 +76,55 @@ obstacle33 = [(1.6, 1.6), (1.6, 0.6), (0.6, 0.6), (0.6, 1.6)]
 
 ws_poly = gdspy.Polygon(ws_limit)
 hole11 = gdspy.Polygon(obstacle11)
-hole12 = gdspy.Polygon(obstacle12)
-hole13 = gdspy.Polygon(obstacle13)
-hole21 = gdspy.Polygon(obstacle21)
+# hole12 = gdspy.Polygon(obstacle12)
+# hole13 = gdspy.Polygon(obstacle13)
+# hole21 = gdspy.Polygon(obstacle21)
 hole22 = gdspy.Polygon(obstacle22)
-hole23 = gdspy.Polygon(obstacle23)
-hole31 = gdspy.Polygon(obstacle31)
+# hole23 = gdspy.Polygon(obstacle23)
+# hole31 = gdspy.Polygon(obstacle31)
 hole32 = gdspy.Polygon(obstacle32)
-hole33 = gdspy.Polygon(obstacle33)
+# hole33 = gdspy.Polygon(obstacle33)
 # enlarge obstacle a little bit
 safety_offset = 0.0
 hole11_large = gdspy.offset(hole11, safety_offset)
-hole12_large = gdspy.offset(hole12, safety_offset)
-hole13_large = gdspy.offset(hole13, safety_offset)
-hole21_large = gdspy.offset(hole21, safety_offset)
+# hole12_large = gdspy.offset(hole12, safety_offset)
+# hole13_large = gdspy.offset(hole13, safety_offset)
+# hole21_large = gdspy.offset(hole21, safety_offset)
 hole22_large = gdspy.offset(hole22, safety_offset)
-hole23_large = gdspy.offset(hole23, safety_offset)
-hole31_large = gdspy.offset(hole31, safety_offset)
+# hole23_large = gdspy.offset(hole23, safety_offset)
+# hole31_large = gdspy.offset(hole31, safety_offset)
 hole32_large = gdspy.offset(hole32, safety_offset)
-hole33_large = gdspy.offset(hole33, safety_offset)
+# hole33_large = gdspy.offset(hole33, safety_offset)
 
 print(hole11_large.polygons[0])
 print(gdspy.Polygon(hole11_large.polygons[0]))
 print(type(gdspy.Polygon(hole11_large.polygons[0])))
-print(hole12_large.polygons[0])
-print(gdspy.Polygon(hole12_large.polygons[0]))
-print(type(gdspy.Polygon(hole12_large.polygons[0])))
-print(hole13_large.polygons[0])
-print(gdspy.Polygon(hole13_large.polygons[0]))
-print(type(gdspy.Polygon(hole13_large.polygons[0])))
-print(hole21_large.polygons[0])
-print(gdspy.Polygon(hole21_large.polygons[0]))
-print(type(gdspy.Polygon(hole21_large.polygons[0])))
+# print(hole12_large.polygons[0])
+# print(gdspy.Polygon(hole12_large.polygons[0]))
+# print(type(gdspy.Polygon(hole12_large.polygons[0])))
+# print(hole13_large.polygons[0])
+# print(gdspy.Polygon(hole13_large.polygons[0]))
+# print(type(gdspy.Polygon(hole13_large.polygons[0])))
+# print(hole21_large.polygons[0])
+# print(gdspy.Polygon(hole21_large.polygons[0]))
+# print(type(gdspy.Polygon(hole21_large.polygons[0])))
 print(hole22_large.polygons[0])
 print(gdspy.Polygon(hole22_large.polygons[0]))
 print(type(gdspy.Polygon(hole22_large.polygons[0])))
-print(hole23_large.polygons[0])
-print(gdspy.Polygon(hole23_large.polygons[0]))
-print(type(gdspy.Polygon(hole23_large.polygons[0])))
-print(hole31_large.polygons[0])
-print(gdspy.Polygon(hole31_large.polygons[0]))
-print(type(gdspy.Polygon(hole31_large.polygons[0])))
+# print(hole23_large.polygons[0])
+# print(gdspy.Polygon(hole23_large.polygons[0]))
+# print(type(gdspy.Polygon(hole23_large.polygons[0])))
+# print(hole31_large.polygons[0])
+# print(gdspy.Polygon(hole31_large.polygons[0]))
+# print(type(gdspy.Polygon(hole31_large.polygons[0])))
 print(hole32_large.polygons[0])
 print(gdspy.Polygon(hole32_large.polygons[0]))
 print(type(gdspy.Polygon(hole32_large.polygons[0])))
-print(hole33_large.polygons[0])
-print(gdspy.Polygon(hole33_large.polygons[0]))
-print(type(gdspy.Polygon(hole33_large.polygons[0])))
+# print(hole33_large.polygons[0])
+# print(gdspy.Polygon(hole33_large.polygons[0]))
+# print(type(gdspy.Polygon(hole33_large.polygons[0])))
 # subtraction
-poly_with_hole = gdspy.boolean(ws_poly, [hole11_large, hole12_large, hole13_large, hole21_large, hole22_large, hole23_large, hole31_large, hole32_large, hole33_large], "not")
+poly_with_hole = gdspy.boolean(ws_poly, [hole11_large, hole22_large, hole32_large], "not")
 # poly_with_hole = gdspy.boolean(ws_poly, [hole11_large], "not")
 
 # print(poly_with_hole.polygons[0])
@@ -376,24 +376,49 @@ ws_sequence = [ws[i] for i in sequence]
 # for poly_idx, midpoints in edge_midpoints.items():
 #     print(f"Polygon {poly_idx}: Edge Midpoints = {midpoints}")
 
+def find_common_edges(p1, p2):
+    """
+    Finds the common edges between two polygons.
+    """
+    edges_p1 = [(p1[i], p1[(i + 1) % len(p1)]) for i in range(len(p1))]
+    edges_p2 = [(p2[i], p2[(i + 1) % len(p2)]) for i in range(len(p2))]
 
-waypoints = [init]  # Start with the initial point
+    common_edges = []
+    for e1 in edges_p1:
+        for e2 in edges_p2:
+            if np.allclose(e1, e2, atol=1e-3) or np.allclose(e1[::-1], e2, atol=1e-3):
+                common_edges.append(e1)
+    return common_edges
+
+def edge_midpoint(edge):
+    """
+    Calculate the midpoint of an edge.
+    """
+    return [(edge[0][0] + edge[1][0]) / 2, (edge[0][1] + edge[1][1]) / 2]
+
+# Initialize waypoints with the initial point
+waypoints = [init]
+
+# Iterate over the sequence of polygons in the shortest path
+for idx in range(len(sequence) - 1):
+    poly1 = ws[sequence[idx]]
+    poly2 = ws[sequence[idx + 1]]
+    
+    # Find common edges between consecutive polygons
+    common_edges = find_common_edges(poly1, poly2)
+    
+    # Add midpoints of common edges to waypoints
+    for edge in common_edges:
+        waypoints.append(edge_midpoint(edge))
 
 
-for poly_idx in sequence:
-    # Add the center of each polygon as a waypoint
-    poly_center = center(ws[poly_idx]).A1.tolist()
-    waypoints.append(poly_center)
+# waypoints = [init]  # Start with the initial point
+
 
 # for poly_idx in sequence:
-#     edge_midpoints = get_edge_midpoints([poly_idx], ws)
-#     for midpoint in edge_midpoints[poly_idx]:
-#         waypoints.append(midpoint)
-
-# edge_midpoints = get_edge_midpoints(sequence, ws)
-# for key, points in edge_midpoints.items():
-#     for point in points:
-#         waypoints.append(point)
+#     # Add the center of each polygon as a waypoint
+#     poly_center = center(ws[poly_idx]).A1.tolist()
+#     waypoints.append(poly_center)
 
 waypoints.append(goal)  # End with the goal point
 
@@ -460,22 +485,22 @@ plt.scatter([center_list[i][0] for i in range(len(center_list))], [center_list[i
 plot_poly_map([ws[i] for i in sequence], ax, 'red')
 p = Polygon(hole11_large.polygons[0], facecolor='k', alpha=0.5)
 plt.gca().add_patch(p)
-p = Polygon(hole12_large.polygons[0], facecolor='k', alpha=0.5)
-plt.gca().add_patch(p)
-p = Polygon(hole13_large.polygons[0], facecolor='k', alpha=0.5)
-plt.gca().add_patch(p)
-p = Polygon(hole21_large.polygons[0], facecolor='k', alpha=0.5)
-plt.gca().add_patch(p)
+# p = Polygon(hole12_large.polygons[0], facecolor='k', alpha=0.5)
+# plt.gca().add_patch(p)
+# p = Polygon(hole13_large.polygons[0], facecolor='k', alpha=0.5)
+# plt.gca().add_patch(p)
+# p = Polygon(hole21_large.polygons[0], facecolor='k', alpha=0.5)
+# plt.gca().add_patch(p)
 p = Polygon(hole22_large.polygons[0], facecolor='k', alpha=0.5)
 plt.gca().add_patch(p)
-p = Polygon(hole23_large.polygons[0], facecolor='k', alpha=0.5)
-plt.gca().add_patch(p)
-p = Polygon(hole31_large.polygons[0], facecolor='k', alpha=0.5)
-plt.gca().add_patch(p)
+# p = Polygon(hole23_large.polygons[0], facecolor='k', alpha=0.5)
+# plt.gca().add_patch(p)
+# p = Polygon(hole31_large.polygons[0], facecolor='k', alpha=0.5)
+# plt.gca().add_patch(p)
 p = Polygon(hole32_large.polygons[0], facecolor='k', alpha=0.5)
 plt.gca().add_patch(p)
-p = Polygon(hole33_large.polygons[0], facecolor='k', alpha=0.5)
-plt.gca().add_patch(p)
+# p = Polygon(hole33_large.polygons[0], facecolor='k', alpha=0.5)
+# plt.gca().add_patch(p)
 # for i in range(5):
 #     plt.scatter(ws[5][i][0], ws[5][i][1],color='k', s=50)
 # plt.plot(xsim[0, :], xsim[1, :], color='green', label='MPC Trajectory', linewidth=2)
