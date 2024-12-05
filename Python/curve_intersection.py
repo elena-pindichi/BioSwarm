@@ -55,7 +55,8 @@ def plot_poly_map(ws, ax, col):
     return 0
 
 
-ws_limit = [(np.float64(20), np.float64(0)), (np.float64(20), np.float64(-120)), (np.float64(100), np.float64(-120)), (np.float64(100), np.float64(0))]
+ws_limit = [(np.float64(20), np.float64(0)), (np.float64(20), np.float64(-120)), (np.float64(100), np.float64(-120)), 
+            (np.float64(100), np.float64(0))]
 obstacle11 = [(83, -76), (91, -76), (91, -84), (83, -84)]
 obstacle12 = [(61, -76), (70, -76), (70, -84), (61, -84)]
 obstacle13 = [(39, -76), (48, -76), (48, -84), (39, -84)]
@@ -120,7 +121,8 @@ print(hole33_large.polygons[0])
 print(gdspy.Polygon(hole33_large.polygons[0]))
 print(type(gdspy.Polygon(hole33_large.polygons[0])))
 # subtraction
-poly_with_hole = gdspy.boolean(ws_poly, [hole11_large, hole12_large, hole13_large, hole21_large, hole22_large, hole23_large, hole31_large, hole32_large, hole33_large], "not")
+poly_with_hole = gdspy.boolean(ws_poly, [hole11_large, hole12_large, hole13_large, hole21_large, 
+                                         hole22_large, hole23_large, hole31_large, hole32_large, hole33_large], "not")
 # poly_with_hole = gdspy.boolean(ws_poly, [hole11_large], "not")
 
 # print(poly_with_hole.polygons[0])
@@ -165,23 +167,6 @@ def generate_sequence(workspace, init_pts, goal_pts):
     goal_polyp = find_polyp(workspace, goal_pts)
     seq = [init_polyp, goal_polyp]
     return seq
-
-def find_common_edge(poly1, poly2):
-    """Return the common edge between two polygons, if any."""
-    # Assuming poly1 and poly2 are gdspy.Polygon objects
-    # Get the edges (coordinates) of both polygons
-    coords1 = poly1.polygons[0]  # Assuming there is only one polygon in the object
-    coords2 = poly2.polygons[0]
-
-    common_edges = []
-    for edge1 in coords1:
-        for edge2 in coords2:
-            # Compare if the edges are the same, i.e., have common coordinates
-            if np.array_equal(edge1, edge2):
-                common_edges.append(edge1)
-    
-    return common_edges
-
 
 n_polyp = len(ws)
 init_goal_idx = (generate_sequence(ws, init, goal))
@@ -258,23 +243,18 @@ def edge_midpoint(edge):
     """
     return [(edge[0][0] + edge[1][0]) / 2, (edge[0][1] + edge[1][1]) / 2]
 
-# Initialize waypoints with the initial point
 waypoints = [init]
 
-# Iterate over the sequence of polygons in the shortest path
 for idx in range(len(sequence) - 1):
     poly1 = ws[sequence[idx]]
     poly2 = ws[sequence[idx + 1]]
     
-    # Find common edges between consecutive polygons
     common_edges = find_common_edges(poly1, poly2)
-    
-    # Add midpoints of common edges to waypoints
+
     for edge in common_edges:
         waypoints.append(edge_midpoint(edge))
 
-waypoints.append(goal)  # End with the goal point
-
+waypoints.append(goal)
 
 print(waypoints)
 
@@ -291,7 +271,6 @@ num_fine_points = 200
 t_fine = np.linspace(0, len(x_waypoints) - 1, num_fine_points)
 x_fine = cs_x(t_fine)
 y_fine = cs_y(t_fine)
-
 
 
 # print("Optimal Trajectory:", xsim)
